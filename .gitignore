@@ -1,0 +1,7 @@
+# Tiled Editor files
+*.tiled-session
+*.tiled-project
+
+# OS files
+.DS_Store
+.DS_Store?
