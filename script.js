@@ -20,7 +20,7 @@ const config = {
 const game = new Phaser.Game(config);
 
 function preload() {
-    this.load.tilemapTiledJSON('office', 'assets/office.json');
+    this.load.tilemapTiledJSON('office', 'assets/new_office.json');
     this.load.image('floors-walls', 'assets/A5 Office Floors & Walls_48x48.png');
     this.load.spritesheet('office-tiles', 'assets/Office Tileset All 48x48.png', {
         frameWidth: 48,
