@@ -1,0 +1,52 @@
+#action-popup {
+    position: absolute;
+    bottom: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: none;
+    flex-direction: row;
+    gap: 8px;
+    padding: 12px 16px;
+    background: rgba(20, 20, 30, 0.92);
+    border-radius: 8px;
+    border: 2px solid rgba(255, 255, 255, 0.15);
+    font-family: 'Press Start 2P', cursive;
+    z-index: 1000;
+}
+
+#action-popup button {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 8px;
+    padding: 10px 14px;
+    background: rgba(255, 255, 255, 0.1);
+    color: #e0e0e0;
+    border: 2px solid rgba(255, 255, 255, 0.25);
+    border-radius: 6px;
+    cursor: pointer;
+    position: relative;
+    transition: background 0.15s, border-color 0.15s;
+}
+
+#action-popup button:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+#action-popup .tooltip {
+    position: absolute;
+    bottom: 110%;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 7px;
+    color: #aaa;
+    white-space: nowrap;
+    background: rgba(0, 0, 0, 0.85);
+    padding: 4px 6px;
+    border-radius: 4px;
+    display: none;
+    pointer-events: none;
+}
+
+#action-popup button:hover .tooltip {
+    display: block;
+}
