@@ -2,15 +2,11 @@ let popupEl = null;
 let currentZone = null;
 
 function createPopup() {
+    if (!bottomPanel) createBottomPanel();
+
     popupEl = document.createElement('div');
     popupEl.id = 'action-popup';
-    const canvas = document.querySelector('canvas');
-    if (canvas && canvas.parentElement) {
-        canvas.parentElement.style.position = 'relative';
-        canvas.parentElement.appendChild(popupEl);
-    } else {
-        document.body.appendChild(popupEl);
-    }
+    bottomPanel.appendChild(popupEl);
 }
 
 function showPopup(zoneType) {

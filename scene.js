@@ -94,6 +94,7 @@ function create() {
     this.cursors = this.input.keyboard.createCursorKeys();
 
     createPopup();
+    createHud();
 }
 
 function update() {
@@ -147,6 +148,8 @@ function update() {
     } else {
         hidePopup();
     }
+
+    updateHud();
 }
 
 // initialize game after functions are defined
