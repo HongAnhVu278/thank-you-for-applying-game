@@ -22,7 +22,8 @@ const stats = {
     hope: 100,
     skill: 70,
     savings: 500,
-    offerProgress: 0
+    offerProgress: 0,
+    pendingApplications: 0
 };
 
 function clampStats() {
