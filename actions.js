@@ -36,10 +36,13 @@ function advanceDay() {
         msg += ' (' + stats.pendingApplications + ' pending)';
     }
     showFeedback(msg);
+
+    checkGameOver();
 }
 
 // returns true if there's actions left, false otherwise
 function useAction() {
+    if (dayState.gameOver) return false;
     if (dayState.actionsLeft <= 0) {
         showFeedback('No actions left today.');
         return false;
@@ -58,6 +61,7 @@ function applyForJob() {
     clampStats();
     updateHud();
     showFeedback('Applied! Progress +' + Math.round(progressGain) + ', Hope −5');
+    checkGameOver();
 }
 
 function checkEmail() {
@@ -70,15 +74,14 @@ function checkEmail() {
     stats.pendingApplications -= 1;
 
     if (stats.offerProgress >= OFFER_PROGRESS_MAX) {
-        // WIN
-        showFeedback('YOU GOT THE JOB!');
-        // TODO: trigger win screen
+        showEndScreen('win');
     } else {
         // rejection
         stats.hope -= 3;
         clampStats();
         updateHud();
         showFeedback('Rejection... Hope −3');
+        checkGameOver();
     }
 }
 
@@ -89,6 +92,7 @@ function practiceSkills() {
     clampStats();
     updateHud();
     showFeedback('Practiced skills! Skill +6, Hope −2');
+    checkGameOver();
 }
 
 function workout() {

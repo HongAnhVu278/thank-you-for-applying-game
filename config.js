@@ -28,7 +28,8 @@ const PENDING_APP_HOPE_DRAIN = 1; // per pending app per day
 const dayState = {
     day: 1,
     actionsLeft: ACTIONS_PER_DAY,
-    dayTimer: 0  // track how many seconds have passed
+    dayTimer: 0,  // track how many seconds have passed
+    gameOver: false
 };
 
 // game stats

@@ -98,6 +98,12 @@ function create() {
 }
 
 function update(time, delta) {
+    if (dayState.gameOver) {
+        this.player.setVelocity(0);
+        this.player.anims.stop();
+        return;
+    }
+
     // day timer — delta is in ms, convert to seconds
     dayState.dayTimer += delta / 1000;
     if (dayState.dayTimer >= DAY_LENGTH) {

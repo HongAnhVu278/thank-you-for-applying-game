@@ -2,6 +2,7 @@ let popupEl = null;
 let currentZone = null;
 let feedbackEl = null;
 let feedbackTimer = null;
+let endScreenEl = null;
 
 function createPopup() {
     if (!bottomPanel) createBottomPanel();
@@ -87,4 +88,59 @@ function showFeedback(message) {
             feedbackEl.classList.remove('fade-out');
         }, 500);
     }, 2000);
+}
+
+function showEndScreen(type) {
+    dayState.gameOver = true;
+    hidePopup();
+
+    const container = document.querySelector('canvas')?.parentElement;
+    if (!container) return;
+
+    endScreenEl = document.createElement('div');
+    endScreenEl.id = 'end-screen';
+
+    const messages = {
+        win: { title: 'You got the job!', sub: 'All that effort paid off.' },
+        'lose-hope': { title: 'You lost hope...', sub: 'The search was too much.' },
+        'lose-savings': { title: 'Out of money...', sub: 'You couldn\'t afford to keep going.' }
+    };
+
+    const msg = messages[type] || messages['lose-hope'];
+
+    const title = document.createElement('div');
+    title.className = 'end-title';
+    title.textContent = msg.title;
+
+    const sub = document.createElement('div');
+    sub.className = 'end-sub';
+    sub.textContent = msg.sub;
+
+    const statsDiv = document.createElement('div');
+    statsDiv.className = 'end-stats';
+    statsDiv.innerHTML =
+        'Day ' + dayState.day +
+        '&nbsp;&nbsp;|&nbsp;&nbsp;Hope ' + Math.round(stats.hope) +
+        '&nbsp;&nbsp;|&nbsp;&nbsp;Skill ' + Math.round(stats.skill) +
+        '&nbsp;&nbsp;|&nbsp;&nbsp;Progress ' + Math.round(stats.offerProgress);
+
+    const btn = document.createElement('button');
+    btn.className = 'end-btn';
+    btn.textContent = 'Play Again';
+    btn.addEventListener('click', () => location.reload());
+
+    endScreenEl.appendChild(title);
+    endScreenEl.appendChild(sub);
+    endScreenEl.appendChild(statsDiv);
+    endScreenEl.appendChild(btn);
+    container.appendChild(endScreenEl);
+}
+
+function checkGameOver() {
+    if (dayState.gameOver) return;
+    if (stats.hope <= 0) {
+        showEndScreen('lose-hope');
+    } else if (stats.savings <= 0) {
+        showEndScreen('lose-savings');
+    }
 }

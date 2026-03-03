@@ -147,3 +147,55 @@
 #feedback.fade-out {
     opacity: 0;
 }
+
+/* --- End screen overlay (covers tilemap area) --- */
+#end-screen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 480px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    background: rgba(0, 0, 0, 0.85);
+    z-index: 1200;
+    pointer-events: auto;
+    font-family: 'Press Start 2P', cursive;
+}
+
+.end-title {
+    font-size: 16px;
+    color: #e0e0e0;
+}
+
+.end-sub {
+    font-size: 8px;
+    color: #aaa;
+}
+
+.end-stats {
+    font-size: 7px;
+    color: #888;
+    margin-top: 8px;
+}
+
+.end-btn {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 9px;
+    padding: 12px 24px;
+    margin-top: 16px;
+    background: rgba(255, 255, 255, 0.1);
+    color: #e0e0e0;
+    border: 2px solid rgba(255, 255, 255, 0.25);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.15s, border-color 0.15s;
+}
+
+.end-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.5);
+}
