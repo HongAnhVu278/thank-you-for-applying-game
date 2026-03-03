@@ -12,7 +12,44 @@ const ZONE_ACTIONS = {
     ]
 };
 
+function advanceDay() {
+    // daily baseline drain
+    let hopeDrain = DAILY_HOPE_DRAIN;
+
+    // hope drain if there are pending emails
+    hopeDrain += stats.pendingApplications * PENDING_APP_HOPE_DRAIN;
+
+    stats.hope -= hopeDrain;
+    stats.savings -= DAILY_SAVINGS_DRAIN;
+
+    // reset day
+    dayState.day += 1;
+    dayState.actionsLeft = ACTIONS_PER_DAY;
+    dayState.dayTimer = 0;
+
+    clampStats();
+    updateHud();
+
+    // popup feedback message
+    let msg = 'Day ' + dayState.day + ' — Hope −' + hopeDrain + ', Savings −' + DAILY_SAVINGS_DRAIN;
+    if (stats.pendingApplications > 0) {
+        msg += ' (' + stats.pendingApplications + ' pending)';
+    }
+    showFeedback(msg);
+}
+
+// returns true if there's actions left, false otherwise
+function useAction() {
+    if (dayState.actionsLeft <= 0) {
+        showFeedback('No actions left today.');
+        return false;
+    }
+    dayState.actionsLeft -= 1;
+    return true;
+}
+
 function applyForJob() {
+    if (!useAction()) return;
     // progress formula: base + skill bonus + hope bonus (capped at 120)
     const progressGain = 5 + (0.05 * stats.skill) + (0.03 * Math.min(stats.hope, 120));
     stats.offerProgress += progressGain;
@@ -22,7 +59,9 @@ function applyForJob() {
     updateHud();
     showFeedback('Applied! Progress +' + Math.round(progressGain) + ', Hope −5');
 }
+
 function checkEmail() {
+    if (!useAction()) return;
     if (stats.pendingApplications <= 0) {
         showFeedback('Inbox empty.');
         return;
@@ -44,6 +83,7 @@ function checkEmail() {
 }
 
 function practiceSkills() {
+    if (!useAction()) return;
     stats.skill += 6;
     stats.hope -= 2;
     clampStats();
@@ -52,6 +92,7 @@ function practiceSkills() {
 }
 
 function workout() {
+    if (!useAction()) return;
     stats.hope += 6;
     clampStats();
     updateHud();
@@ -59,6 +100,7 @@ function workout() {
 }
 
 function talkToFriend() {
+    if (!useAction()) return;
     stats.hope += 8;
     clampStats();
     updateHud();

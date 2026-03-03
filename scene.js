@@ -97,7 +97,13 @@ function create() {
     createHud();
 }
 
-function update() {
+function update(time, delta) {
+    // day timer — delta is in ms, convert to seconds
+    dayState.dayTimer += delta / 1000;
+    if (dayState.dayTimer >= DAY_LENGTH) {
+        advanceDay();
+    }
+
     this.player.setVelocity(0);
     let moving = false;
 

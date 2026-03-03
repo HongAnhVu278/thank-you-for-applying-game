@@ -1,6 +1,7 @@
 // Heads-Up Display
 let hudEl = null;
 let bottomPanel = null;
+let dayInfoEl = null;
 
 const HUD_ITEMS = [
     { key: 'hope',          label: 'Hope',     color: '#f472b6' },
@@ -28,6 +29,12 @@ function createBottomPanel() {
 function createHud() {
     if (!bottomPanel) createBottomPanel();
 
+    // day bar: top of bottom panel, above hud + options, below tilemap
+    dayInfoEl = document.createElement('div');
+    dayInfoEl.id = 'day-bar';
+    bottomPanel.appendChild(dayInfoEl);
+
+    // hud below the day bar
     hudEl = document.createElement('div');
     hudEl.id = 'hud';
 
@@ -64,6 +71,12 @@ function createHud() {
 
 function updateHud() {
     if (!hudEl) return;
+
+    // update day info
+    if (dayInfoEl) {
+        const secsLeft = Math.max(0, Math.ceil(DAY_LENGTH - dayState.dayTimer));
+        dayInfoEl.textContent = 'Day ' + dayState.day + '  |  ' + dayState.actionsLeft + ' actions  |  ' + secsLeft + 's';
+    }
 
     const maxValues = {
         hope: HOPE_MAX,

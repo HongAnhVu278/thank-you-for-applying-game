@@ -5,23 +5,38 @@
     left: 0;
     width: 100%;
     height: 120px;
-    border-top: 2px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    flex-direction: column;
     z-index: 1000;
     pointer-events: none;
 }
 
-/* --- HUD (bottom-left) --- */
+/* --- Day bar (top row of bottom panel) --- */
+#day-bar {
+    width: 100%;
+    padding: 6px 0;
+    text-align: center;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 10px;
+    color: #e0e0e0;
+    background: rgba(255, 255, 255, 0.05);
+    border-top: 2px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    white-space: nowrap;
+    pointer-events: none;
+}
+
+/* --- HUD + popup row (below day bar) --- */
 #hud {
-    position: absolute;
-    top: 50%;
-    left: 0;
-    transform: translateY(-50%);
+    position: relative;
+    flex: 1;
     display: flex;
     flex-direction: column;
+    justify-content: center;
     gap: 4px;
     font-family: 'Press Start 2P', cursive;
     font-size: 7px;
-    padding: 10px 14px;
+    padding: 4px 14px;
     pointer-events: none;
 }
 
@@ -56,12 +71,14 @@
     width: 36px;
 }
 
-/* --- Popup (bottom-center, offset right to avoid HUD) --- */
+/* --- Popup (right side, vertically centered in lower area) --- */
 #action-popup {
     position: absolute;
-    top: 50%;
+    bottom: 0;
     left: calc(50% + 110px);
-    transform: translate(-50%, -50%);
+    transform: translateX(-50%);
+    height: calc(100% - 28px);
+    align-items: center;
     display: none;
     flex-direction: row;
     gap: 8px;
