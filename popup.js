@@ -65,7 +65,7 @@ function hidePopup() {
     }
 }
 
-function showFeedback(message) {
+function showFeedback(message, type) {
     // append to the game's parent container so it overlay the tilemap
     const container = document.querySelector('canvas')?.parentElement;
     if (!container) return;
@@ -73,21 +73,32 @@ function showFeedback(message) {
     if (!feedbackEl) {
         feedbackEl = document.createElement('div');
         feedbackEl.id = 'feedback';
+        const inner = document.createElement('div');
+        inner.id = 'feedback-inner';
+        feedbackEl.appendChild(inner);
         container.appendChild(feedbackEl);
     }
 
-    feedbackEl.textContent = message;
-    feedbackEl.classList.remove('fade-out');
-    feedbackEl.style.display = 'block';
+    const inner = feedbackEl.querySelector('#feedback-inner');
+    inner.textContent = message;
+    feedbackEl.classList.remove('fade-out', 'feedback-centered');
+
+    if (type === 'burnout') {
+        feedbackEl.classList.add('feedback-centered');
+    }
+
+    feedbackEl.style.display = 'flex';
+
+    const duration = type === 'burnout' ? 4000 : 2000;
 
     if (feedbackTimer) clearTimeout(feedbackTimer);
     feedbackTimer = setTimeout(() => {
         feedbackEl.classList.add('fade-out');
         setTimeout(() => {
             feedbackEl.style.display = 'none';
-            feedbackEl.classList.remove('fade-out');
+            feedbackEl.classList.remove('fade-out', 'feedback-centered');
         }, 500);
-    }, 2000);
+    }, duration);
 }
 
 function showEndScreen(type) {

@@ -124,24 +124,44 @@
     display: block;
 }
 
-/* --- Feedback toast (bottom of tilemap, above HUD) --- */
+/* --- Feedback toast (default: bottom-center of tilemap) --- */
 #feedback {
     position: absolute;
     bottom: 165px;
-    left: 50%;
-    transform: translateX(-50%);
+    left: 0;
+    width: 100%;
+    display: none;
+    justify-content: center;
     font-family: 'Press Start 2P', cursive;
     font-size: 9px;
     color: #e0e0e0;
-    background: rgba(0, 0, 0, 0.75);
+    pointer-events: none;
+    z-index: 1100;
+    transition: opacity 0.5s ease;
+}
+
+/* centered variant for burnout */
+#feedback.feedback-centered {
+    bottom: 0;
+    top: 0;
+    height: 480px;
+    align-items: center;
+}
+
+#feedback-inner {
+    background: rgba(0, 0, 0, 0.8);
     padding: 8px 14px;
     border-radius: 6px;
     border: 1px solid rgba(255, 255, 255, 0.15);
-    display: none;
-    pointer-events: none;
-    z-index: 1100;
+    text-align: center;
     white-space: nowrap;
-    transition: opacity 0.5s ease;
+}
+
+#feedback.feedback-centered #feedback-inner {
+    white-space: normal;
+    max-width: 70%;
+    padding: 14px 20px;
+    line-height: 1.8;
 }
 
 #feedback.fade-out {

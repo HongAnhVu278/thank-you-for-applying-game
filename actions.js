@@ -53,19 +53,52 @@ function useAction() {
 
 function applyForJob() {
     if (!useAction()) return;
+
+    dayState.consecutiveApplies += 1;
+
+    // check burnout trigger: 4 consecutive applies
+    if (dayState.consecutiveApplies >= BURNOUT_THRESHOLD && dayState.burnoutRemaining === 0) {
+        dayState.burnoutRemaining = BURNOUT_PENALTY_COUNT;
+        dayState.consecutiveApplies = 0;
+        stats.hope -= BURNOUT_HOPE_COST;
+        clampStats();
+        updateHud();
+        showFeedback("You're burning out. Hope −" + BURNOUT_HOPE_COST + ". Your next 3 applications won't be your best work. Take a break — work out, talk to a friend.", 'burnout');
+        checkGameOver();
+        return;
+    }
+
     // progress formula: base + skill bonus + hope bonus (capped at 120)
-    const progressGain = 5 + (0.05 * stats.skill) + (0.03 * Math.min(stats.hope, 120));
+    let progressGain = 5 + (0.05 * stats.skill) + (0.03 * Math.min(stats.hope, 120));
+
+    // burnout penalty
+    let wasBurnedOut = false;
+    if (dayState.burnoutRemaining > 0) {
+        progressGain *= BURNOUT_PROGRESS_MULT;
+        dayState.burnoutRemaining -= 1;
+        wasBurnedOut = true;
+    }
+
     stats.offerProgress += progressGain;
     stats.hope -= 5;
     stats.pendingApplications += 1;
     clampStats();
     updateHud();
-    showFeedback('Applied! Progress +' + Math.round(progressGain) + ', Hope −5');
+
+    // burnout feedback
+    if (wasBurnedOut && dayState.burnoutRemaining > 0) {
+        showFeedback('Still burned out... Your application felt rushed. (' + dayState.burnoutRemaining + ' remaining)');
+    } else if (wasBurnedOut && dayState.burnoutRemaining === 0) {
+        showFeedback('Feeling better. Back to full strength.');
+    } else {
+        showFeedback('Applied! Progress +' + Math.round(progressGain) + ', Hope −5');
+    }
     checkGameOver();
 }
 
 function checkEmail() {
     if (!useAction()) return;
+    //dayState.consecutiveApplies = 0;
     if (stats.pendingApplications <= 0) {
         showFeedback('Inbox empty.');
         return;
@@ -87,6 +120,7 @@ function checkEmail() {
 
 function practiceSkills() {
     if (!useAction()) return;
+    dayState.consecutiveApplies = 0;
     stats.skill += 6;
     stats.hope -= 2;
     clampStats();
@@ -97,6 +131,7 @@ function practiceSkills() {
 
 function workout() {
     if (!useAction()) return;
+    dayState.consecutiveApplies = 0;
     stats.hope += 6;
     clampStats();
     updateHud();
@@ -105,6 +140,7 @@ function workout() {
 
 function talkToFriend() {
     if (!useAction()) return;
+    dayState.consecutiveApplies = 0;
     stats.hope += 8;
     clampStats();
     updateHud();
