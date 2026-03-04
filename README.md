@@ -31,7 +31,7 @@ Move through the office and choose between three zones:
 
 - **Savings** decrease daily  
 - **Hope** decays over time and is affected by outcomes
-- **Skill** — Increases through practice and improves job progress probability   
+- **Skill** increases through practice and improves job progress probability   
 - **Job Progress** increases through applications  
 
 Rejections reduce Hope. Consecutive applications trigger a burnout penalty. Inactivity causes passive Hope loss.
@@ -62,7 +62,7 @@ The player must explicitly check email to resolve pending applications.
 
 ### Email Resolution Pressure
 
-Pending applications reduce Hope if left unresolved.  
+Pending applications/emails reduce Hope if left unresolved.  
 Checking email clears applications and resolves outcomes, preventing ongoing Hope decay.
 
 ## Architecture
