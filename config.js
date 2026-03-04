@@ -30,6 +30,10 @@ const BURNOUT_PENALTY_COUNT = 3;  // next 3 applications after burnout will hind
 const BURNOUT_HOPE_COST = 25;     // immediate hope loss on burnout trigger
 const BURNOUT_PROGRESS_MULT = 0.5;
 
+// stillness constants
+const STILLNESS_TIMEOUT = 6;    // seconds of no action before trigger
+const STILLNESS_HOPE_COST = 5;
+
 // day/time state
 const dayState = {
     day: 1,
@@ -37,7 +41,8 @@ const dayState = {
     dayTimer: 0,  // track how many seconds have passed
     gameOver: false,
     consecutiveApplies: 0,
-    burnoutRemaining: 0
+    burnoutRemaining: 0,
+    lastActionTime: 0
 };
 
 // game stats

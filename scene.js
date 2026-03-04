@@ -110,6 +110,17 @@ function update(time, delta) {
         advanceDay();
     }
 
+    // stillness check: no action for 6 s while actions remain
+    if (dayState.actionsLeft > 0 &&
+        dayState.dayTimer - dayState.lastActionTime >= STILLNESS_TIMEOUT) {
+        dayState.lastActionTime = dayState.dayTimer; // reset so it can trigger again in 6s
+        stats.hope -= STILLNESS_HOPE_COST;
+        clampStats();
+        updateHud();
+        showFeedback('Time is passing... Hope −' + STILLNESS_HOPE_COST);
+        checkGameOver();
+    }
+
     this.player.setVelocity(0);
     let moving = false;
 

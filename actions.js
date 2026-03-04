@@ -26,6 +26,7 @@ function advanceDay() {
     dayState.day += 1;
     dayState.actionsLeft = ACTIONS_PER_DAY;
     dayState.dayTimer = 0;
+    dayState.lastActionTime = 0;
 
     clampStats();
     updateHud();
@@ -48,6 +49,7 @@ function useAction() {
         return false;
     }
     dayState.actionsLeft -= 1;
+    dayState.lastActionTime = dayState.dayTimer;
     return true;
 }
 
