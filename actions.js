@@ -34,7 +34,7 @@ function advanceDay() {
     // popup feedback message
     let msg = 'Day ' + dayState.day + ' — Hope −' + hopeDrain + ', Savings −' + DAILY_SAVINGS_DRAIN;
     if (stats.pendingApplications > 0) {
-        msg += ' (' + stats.pendingApplications + ' pending)';
+        msg += ' (' + stats.pendingApplications + ' pending email' + (stats.pendingApplications > 1 ? 's' : '') + ')';
     }
     showFeedback(msg);
 
