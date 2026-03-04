@@ -112,9 +112,9 @@ function showEndScreen(type) {
     endScreenEl.id = 'end-screen';
 
     const messages = {
-        win: { title: 'You got the job!', sub: 'All that effort paid off.' },
-        'lose-hope': { title: 'You lost hope...', sub: 'The search was too much.' },
-        'lose-savings': { title: 'Out of money...', sub: 'You couldn\'t afford to keep going.' }
+        win: { title: 'You got the job! 🤩💖', sub: 'All that effort paid off.' },
+        'lose-hope': { title: 'You lost hope... 🥹🫂', sub: 'The search was too much.' },
+        'lose-savings': { title: 'Out of money... 🥹🫂', sub: 'You couldn\'t afford to keep going.' }
     };
 
     const msg = messages[type] || messages['lose-hope'];

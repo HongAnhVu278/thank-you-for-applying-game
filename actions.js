@@ -43,7 +43,7 @@ function advanceDay() {
 
 // returns true if there's actions left, false otherwise
 function useAction() {
-    if (dayState.gameOver) return false;
+    if (!dayState.gameStarted || dayState.gameOver) return false;
     if (dayState.actionsLeft <= 0) {
         showFeedback('No actions left today.');
         return false;

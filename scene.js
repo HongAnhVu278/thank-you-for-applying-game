@@ -80,7 +80,7 @@ function create() {
 
     // load player
     this.player = this.physics.add.sprite(
-        GAME_WIDTH / 2, GAME_HEIGHT / 2, 'character', 0
+        GAME_WIDTH / 2, MAP_HEIGHT / 2, 'character', 0
     );
     this.player.setScale(PLAYER_SCALE);
     this.player.setDepth(1000);
@@ -95,10 +95,21 @@ function create() {
 
     createPopup();
     createHud();
+
+    const container = document.getElementById('game-container');
+    const playBtn = document.createElement('button');
+    playBtn.id = 'play-btn';
+    playBtn.className = 'play-btn';
+    playBtn.textContent = 'Play';
+    container.appendChild(playBtn);
+    playBtn.addEventListener('click', () => {
+        dayState.gameStarted = true;
+        playBtn.remove();
+    });
 }
 
 function update(time, delta) {
-    if (dayState.gameOver) {
+    if (!dayState.gameStarted || dayState.gameOver) {
         this.player.setVelocity(0);
         this.player.anims.stop();
         return;
@@ -178,6 +189,7 @@ function update(time, delta) {
 // initialize game after functions are defined
 const game = new Phaser.Game({
     type: Phaser.AUTO,
+    parent: 'game-container',
     width: GAME_WIDTH,
     height: GAME_HEIGHT,
     physics: {

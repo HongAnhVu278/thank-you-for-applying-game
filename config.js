@@ -39,6 +39,7 @@ const dayState = {
     day: 1,
     actionsLeft: ACTIONS_PER_DAY,
     dayTimer: 0,  // track how many seconds have passed
+    gameStarted: false,
     gameOver: false,
     consecutiveApplies: 0,
     burnoutRemaining: 0,
