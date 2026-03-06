@@ -94,3 +94,5 @@ This game is a structured reflection of my experience. It models the tension bet
 
 The mechanics are inspired by lessons learned about balancing sustained job search effort with personal well-being.
 
+[Read more about the process here!](https://debuggingmy20s.substack.com/p/what-i-learned-and-did-after-being-e98)
+
